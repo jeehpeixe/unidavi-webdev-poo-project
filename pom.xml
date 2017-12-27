@@ -38,6 +38,9 @@
         <project.report.outputEncoding>UTF-8</project.report.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <sonar.exclusions>
+            **/unidavi/Basquete.java, **/unidavi/Principal.java
+        </sonar.exclusions>
     </properties>
     <reporting>
         <plugins>
