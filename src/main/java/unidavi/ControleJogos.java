@@ -1,9 +1,8 @@
 package unidavi;
 
-
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -39,13 +38,11 @@ public final class ControleJogos {
      * @param dataHora
      * @return ArrayList
      */
-    public ArrayList<Jogo> buscarJogosPorData(Date dataHora){
+    public List<Jogo> buscarJogosPorData(Date dataHora){
         
         ArrayList<Jogo> aJogosData = new ArrayList();
         
-        aJogos.stream().filter((oJogoAtual) -> (oJogoAtual.getDataHora().equals(dataHora))).forEachOrdered((oJogoAtual) -> {
-            aJogosData.add(oJogoAtual);
-        });
+        aJogos.stream().filter(oJogoAtual -> (oJogoAtual.getDataHora().equals(dataHora))).forEachOrdered(aJogosData::add);
         
         return aJogosData;
     }
@@ -65,16 +62,16 @@ public final class ControleJogos {
         return null;
     }
     
-    public ArrayList<Time> buscaEquipes(){
+    public List<Time> buscaEquipes(){
         return aEquipes;
     }
     
-    public ArrayList<Jogo> getAllAgendamentos(){
+    public List<Jogo> getAllAgendamentos(){
         return aJogos;
     }
     
     public boolean existemJogosAguardando(){
-        return aJogos.stream().anyMatch((oJogoAtual) -> (oJogoAtual.isAguardando()));
+        return aJogos.stream().anyMatch(oJogoAtual -> (oJogoAtual.isAguardando()));
     }
     
     public Time criaEquipe(String sNomeEquipe) {

@@ -3,15 +3,15 @@ package unidavi;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Basquete {
     
-    static public final String OPCAO_INVALIDA = "Opção inválida! \n\n";
+    public static final String OPCAO_INVALIDA = "Opção inválida! \n\n";
     
     public void processaDados() {
         
@@ -34,7 +34,7 @@ public class Basquete {
                     default: Logger.getGlobal().info(OPCAO_INVALIDA);
                 }
                 
-            } while (bSair == false);
+            } while (!bSair);
         }
     }
     
@@ -77,7 +77,7 @@ public class Basquete {
         do {
             Logger.getGlobal().log(Level.INFO, "Selecione o Time {0}: \n\n", sNumero);
 
-            ArrayList<Time> aTimes = ControleJogos.getInstance().buscaEquipes();
+            List<Time> aTimes = ControleJogos.getInstance().buscaEquipes();
             
             aTimes.forEach(oEquipeAtual -> {
                 if (iTime1 == null || (oEquipeAtual.getCodigo() != iTime1)) {
@@ -180,7 +180,7 @@ public class Basquete {
     
     private Jogo selecionaOpcaoJogoValida(String sValor){
         
-        ArrayList<Jogo> aJogos = ControleJogos.getInstance().getAllAgendamentos();
+        List<Jogo> aJogos = ControleJogos.getInstance().getAllAgendamentos();
         
         Jogo oJogo;
         
@@ -198,19 +198,12 @@ public class Basquete {
     private void printTextoMenuJogosDisponiveis(){
         Logger.getGlobal().info("Selecione o jogo desejado: \n");
             
-        ArrayList<Jogo> aJogos = ControleJogos.getInstance().getAllAgendamentos();
+        List<Jogo> aJogos = ControleJogos.getInstance().getAllAgendamentos();
 
-        aJogos.stream().filter((oJogoAtual) -> (oJogoAtual.isAguardando())).forEachOrdered((Jogo oJogoAtual) -> {
-
-            Logger.getGlobal().info(
-                "Jogo: "        + (aJogos.indexOf(oJogoAtual) + 1) +
-                " - Time A: "   + oJogoAtual.getEquipeA().getDescricao()+
-                ", Time B: "    + oJogoAtual.getEquipeB().getDescricao() +
-                ", Data/Hora: " + oJogoAtual.getDataHoraString() +
-                " \n"
-            );
-        });
-
+        aJogos.stream().filter(oJogoAtual -> (oJogoAtual.isAguardando())).forEachOrdered((Jogo oJogoAtual) ->
+            Logger.getGlobal().log(
+                Level.INFO, "Jogo: {0}{1} - Time A: {2}, Time B: {3}, Data/Hora: {4} \n", new Object[]{aJogos.indexOf(oJogoAtual), 1, oJogoAtual.getEquipeA().getDescricao(), oJogoAtual.getEquipeB().getDescricao(), oJogoAtual.getDataHoraString()})
+        );
     }
     
     private void processaJogo(Scanner scanner){

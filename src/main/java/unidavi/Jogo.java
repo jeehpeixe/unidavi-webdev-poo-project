@@ -1,7 +1,5 @@
 package unidavi;
 
-
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,9 +18,9 @@ public class Jogo {
     protected int pontosEquipeB;
     protected Enum<SituacaoJogoEnum> situacao;
     
-    public Jogo(Time TimeA, Time TimeB, Date dataHora){
-        this.equipeA = TimeA;
-        this.equipeB = TimeB;
+    public Jogo(Time timeA, Time timeB, Date dataHora){
+        this.equipeA = timeA;
+        this.equipeB = timeB;
         this.dataHora = dataHora;
         this.situacao = SituacaoJogoEnum.AGUARDANDO;
         this.pontosEquipeA = 0;
@@ -31,8 +29,7 @@ public class Jogo {
 
     public String getDataHoraString(){
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String sDataHora = df.format(getDataHora());
-        return sDataHora;
+        return df.format(getDataHora());
     }
     
     public Date getDataHora(){
@@ -43,7 +40,7 @@ public class Jogo {
         return montaChaveJogo(this.equipeA.getCodigo(), this.equipeB.getCodigo(), this.getDataHoraString());
     }
     
-    static public String montaChaveJogo(int codigoTimeA, int codigoTimeB, String dataHora) {
+    public static String montaChaveJogo(int codigoTimeA, int codigoTimeB, String dataHora) {
         return codigoTimeA + "_" + codigoTimeB + "_" + dataHora;
     }
     
